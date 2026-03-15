@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from chipin.models import Group
 
 @receiver(post_save, sender=User)
 def ensure_profile(sender, instance: User, created, **kwargs):
@@ -18,6 +19,9 @@ def ensure_profile(sender, instance: User, created, **kwargs):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
     nickname = models.CharField(max_length=30, unique=True)
+    max_spend = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)  # Max spend for each event
+    balance = models.DecimalField(max_digits=10, decimal_places=2, default=100.00)  # User's current balance
+
 
     def __str__(self):
         return self.user.username
