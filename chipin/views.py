@@ -343,3 +343,5 @@ def delete_event(request, group_id, event_id):
     event.delete()
     messages.success(request, f"The event '{event.name}' has been deleted.")
     return redirect('chipin:group_detail', group_id=group.id)
+
+    
