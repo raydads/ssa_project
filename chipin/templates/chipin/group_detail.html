@@ -75,6 +75,18 @@
 {% if request.user == group.admin %}
     <a href="{% url 'chipin:create_event' group.id %}" class="btn btn-primary">Create New Event</a>
 {% endif %}
+
+<form action="{% url 'chipin:transfer_funds' group.id event.id %}"
+      method="post"
+      style="display:inline;">
+    {% csrf_token %}
+    <button type="submit"
+            class="btn btn-success"
+            onclick="return confirm('Transfer funds for this event? This action is irreversible.');">
+        Transfer Funds
+    </button>
+</form>
+
 <ul>
     {% for event, info in event_share_info.items %}
         <li>
